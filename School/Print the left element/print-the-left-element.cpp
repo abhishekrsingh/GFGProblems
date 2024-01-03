@@ -5,12 +5,15 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
     public:
-    int leftElement(int a[], int n) 
-    {
-        sort(a , a+n);
-        int ans = (n - 1)/2;
-        return a[ans];
-        
+    int leftElement(int a[], int n) {
+        // Your code goes here  
+        sort(a, a+n);
+       
+       if(n%2==0) {
+           return a[(n/2)-1];
+       }
+       
+       return a[n/2];
     }
 };
 
