@@ -12,16 +12,38 @@ class Solution{
     public:
 
     //Function to check if two arrays are equal or not.
-    bool check(vector<ll> A, vector<ll> B, int N) {
-        //code here
-        sort(A.begin(),A.end());
-        sort(B.begin(),B.end());
-        for(int i = 0; i < N; i++)
-        {
-            if(A[i] != B[i])
-                return 0;
+    bool check(vector<ll> A, vector<ll> B, int n) {
+        // Create an unordered_map to store the frequency of elements in array A
+        unordered_map<ll,ll> umap;
+        
+        // Count the frequency of each element in array A
+        for(int i=0;i<n;i++)
+            umap[A[i]]++;
+        
+        // Iterate through each element in array B
+        for(int i=0;i<n;i++){
+            // Get the current element of array B
+            ll key = B[i];
+            
+            // Check if the current element of array B exists in array A
+            if(umap.find(key) != umap.end()){
+                // If the element exists in array A, decrement its frequency
+                auto itr = umap.find(key);
+                
+                // If the frequency is greater than 0, decrement it
+                if(itr->second > 0)
+                    itr->second--;
+                // If the frequency is already 0, return false as we can't decrement further
+                else
+                    return false;
+            }
+            // If the element doesn't exist in array A, return false
+            else
+                return false;
         }
-        return 1;
+        
+        // If all elements of array B are found in array A with sufficient frequency, return true
+        return true;
     }
 };
 
