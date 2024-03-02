@@ -6,9 +6,9 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
     public:
-    int firstElementKTime(int arr[], int n, int k)
+    int firstElementKTime(int n, int k, int arr[])
     {
-        vector<int> v(201, 0); // since a[i] <= 200, we need an array of size 201
+        vector<int> v(201, 0); // since arr[i] <= 200, we need an array of size 201
         int first = -1;
         for (int i = 0; i < n; i++) {
             v[arr[i]]++;
@@ -19,6 +19,7 @@ class Solution{
         return (first != -1) ? arr[first] : -1;
     }
 };
+
 
 //{ Driver Code Starts.
 
@@ -33,7 +34,7 @@ int main() {
 	        cin >> a[i];
 	    }
 	    Solution ob;
-	    cout<<ob.firstElementKTime(a, n, k)<<endl;
+	    cout<<ob.firstElementKTime(n, k, a)<<endl;
 	}
 	
 	return 0;
