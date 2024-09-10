@@ -12,15 +12,39 @@ class Solution {
   public:
     // Function to check if two arrays are equal or not.
     bool check(vector<int>& arr1, vector<int>& arr2) {
-        // code here
-        sort(arr1.begin(), arr1.end());
-        sort(arr2.begin(), arr2.end());
-        for(int i=0; i < arr1.size(); i++)
-        {
-            if(arr1[i] != arr2[i])return false;
+        if (arr1.size() != arr2.size()) {
+            return false;  // Arrays of different sizes can't be permutations of each other
         }
-        return true;
+    
+        unordered_map<int, int> umap1, umap2;
+        
+        // Count frequency of each element in arr1
+        for (int i = 0; i < arr1.size(); i++) {
+            umap1[arr1[i]]++;
+        }
+        
+        // Count frequency of each element in arr2
+        for (int i = 0; i < arr2.size(); i++) {
+            umap2[arr2[i]]++;
+        }
+        
+        // Compare both frequency maps
+        return umap1 == umap2;
     }
+    
+    
+    
+    
+    // bool check(vector<int>& arr1, vector<int>& arr2) {
+    //     // code here
+    //     sort(arr1.begin(), arr1.end());
+    //     sort(arr2.begin(), arr2.end());
+    //     for(int i=0; i < arr1.size(); i++)
+    //     {
+    //         if(arr1[i] != arr2[i])return false;
+    //     }
+    //     return true;
+    // }
 };
 
 //{ Driver Code Starts.
