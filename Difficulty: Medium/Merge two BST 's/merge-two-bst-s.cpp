@@ -96,26 +96,51 @@ class Solution {
   public:
     // Function to return a list of integers denoting the node
     // values of both the BST in a sorted order.
-    void help(Node *root,vector<int> &temp){
-        if(!root)return;
-        help(root->left,temp);
-        temp.push_back(root->data);
-        help(root->right,temp);
-    }
-    // Function to return a list of integers denoting the node
-    // values of both the BST in a sorted order.
-    vector<int> merge(Node *root1, Node *root2) {
-        // Your code here
-        vector<int> first,second,ans;
-        help(root1,first);
-        help(root2,second);
-        int i=0,j=0;
-        while(i<first.size() and j<second.size()){
-            if(first[i]<=second[j])ans.push_back(first[i++]);
-            else ans.push_back(second[j++]);
+    void inOrderTraversal(Node* root,vector<int>&v){
+        if(!root){
+            return ;
         }
-        while(i<first.size())ans.push_back(first[i++]);
-        while(j<second.size())ans.push_back(second[j++]);
+        inOrderTraversal(root->left,v);
+        v.push_back(root->data);
+        inOrderTraversal(root->right,v);
+    }
+    vector<int> merge(Node *root1, Node *root2) {
+        vector<int>v1;
+        vector<int>v2;
+        inOrderTraversal(root1,v1);
+        inOrderTraversal(root2,v2);
+        int n1 = v1.size();
+        int n2 = v2.size();
+        //ans = v1+v2;
+       // sort(ans.begin(),ans.end());
+        
+       int i=0;
+        int j=0;
+        vector<int>ans;
+        while(i<n1&&j<n2){
+            if(v1[i]<v2[j]){
+                ans.push_back(v1[i]);
+                i++;
+            }
+            else if(v2[j]<v1[i]){
+                ans.push_back(v2[j]);
+                j++;
+            }
+            else{ 
+                ans.push_back(v1[i]);
+                ans.push_back(v2[j]);
+                j++;
+                i++;
+            }
+        }
+        while(i<n1){
+            ans.push_back(v1[i]);
+            i++;
+        }
+        while(j<n2){
+            ans.push_back(v2[j]);
+            j++;
+        }
         return ans;
     }
 };
