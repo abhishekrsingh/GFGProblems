@@ -87,6 +87,10 @@ class GFG {
 // } Driver Code Ends
 
 
+
+
+
+
 /*
 class Node {
     int data;
@@ -102,25 +106,29 @@ class Node {
 */
 
 class Solution {
-    static int countPathsUtil(Node node, int k, int currSum, HashMap<Integer, Integer> prefSums) {
-        if (node == null)
-            return 0;
-
-        int pathCount = 0;
-        currSum += node.data;
-        if (currSum == k)
-            pathCount++;
-        pathCount += prefSums.getOrDefault(currSum - k, 0);
-        prefSums.put(currSum, prefSums.getOrDefault(currSum, 0) + 1);
-
-        pathCount += countPathsUtil(node.left, k, currSum, prefSums);
-        pathCount += countPathsUtil(node.right, k, currSum, prefSums);
-        prefSums.put(currSum, prefSums.get(currSum) - 1);
-
-        return pathCount;
-    }
+    Map<Integer,Integer> map ;
+    
     public int sumK(Node root, int k) {
-        HashMap<Integer, Integer> prefSums = new HashMap<>();
-        return countPathsUtil(root, k, 0, prefSums);
+        // code here
+        map = new HashMap<>();
+        return solve(root,0,k);
+        
+    }
+    
+    int solve(Node root, int cur,int k){
+        if(root == null) return 0;
+        
+        int pathcnt = 0;
+        cur += root.data;
+        if(cur == k) {
+            pathcnt++;
+        }
+        
+        pathcnt += map.getOrDefault((cur-k),0);
+        map.put(cur,map.getOrDefault(cur,0)+1);
+        pathcnt += solve(root.left,cur,k);
+        pathcnt += solve(root.right,cur,k);
+        map.put(cur,map.get(cur)-1);
+        return pathcnt;
     }
 }
