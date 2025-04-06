@@ -4,14 +4,19 @@ using namespace std;
 
 
 // } Driver Code Ends
+
 class Solution {
   public:
-    void reverseArray(std::vector<int> &arr) {
-        for (size_t i = 0, j = arr.size() - 1; i < j; ++i, --j) {
-            std::swap(arr[i], arr[j]);
+    void reverseArray(vector<int> &arr) {
+        // code here
+        int i = 0, j = arr.size()-1;
+        while(i < j)
+        {
+            swap(arr[i++], arr[j--]);
         }
     }
 };
+
 
 //{ Driver Code Starts.
 int main() {
