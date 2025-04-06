@@ -11,23 +11,22 @@ class Solution {
     // Function returns the second
     // largest elements
     int getSecondLargest(vector<int> &arr) {
-        if (arr.size() < 2) {
-        return -1; // Not enough elements
-        }
-    
-        int firstLargest = INT_MIN, secondLargest = INT_MIN;
-    
-        for (int num : arr) { // Use range-based for loop for simplicity
-            if (num > firstLargest) {
-                secondLargest = firstLargest;
-                firstLargest = num;
-            } else if (num > secondLargest && num < firstLargest) {
-                secondLargest = num;
+        // Code Here
+        int largestNumber = -1,secondLargest = -1;
+        for(int i = 0; i < arr.size(); i++)
+        {
+            if(arr[i] > largestNumber)
+            {
+                secondLargest = largestNumber;
+                largestNumber = arr[i];
+            }else if(arr[i] < largestNumber && arr[i] > secondLargest)
+            {
+                secondLargest = arr[i];
             }
         }
-    
-        return (secondLargest == INT_MIN) ? -1 : secondLargest;
+        return secondLargest;
     }
+    
 };
 
 //{ Driver Code Starts.
