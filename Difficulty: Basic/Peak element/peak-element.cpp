@@ -5,6 +5,7 @@ using namespace std;
 
 // } Driver Code Ends
 
+
 class Solution {
   public:
     int peakElement(vector<int> &arr) {
@@ -45,8 +46,10 @@ class Solution {
         }
         
         return 0;
+        
     }
 };
+
 
 //{ Driver Code Starts.
 
