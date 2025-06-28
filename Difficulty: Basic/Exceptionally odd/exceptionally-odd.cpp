@@ -10,6 +10,17 @@ using namespace std;
 
 class Solution {
   public:
+    // int getOddOccurrence(int arr[], int n) {
+    //     // code here
+    //     int res = 0;
+    //     for(int i = 0; i < n; i++)
+    //     {
+    //         res ^= arr[i];
+    //     }
+    //     return res;
+    // }
+    
+    
     int getOddOccurrence(int arr[], int n) {
         // code here
         unordered_map<int, int> umap;
