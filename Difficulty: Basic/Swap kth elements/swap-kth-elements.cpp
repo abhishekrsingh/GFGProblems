@@ -29,14 +29,7 @@ class Solution {
     void swapKth(vector<int> &arr, int k) {
         // code here
         int n = arr.size();
-        for(int i = 0; i < n; i++)
-        {
-            if(i+1 == k)
-            {
-               swap(arr[i], arr[n - k]);
-               break;
-            }
-        }
+        swap(arr[k - 1], arr[n - k]);  // 1-based to 0-based
     }
 };
 
