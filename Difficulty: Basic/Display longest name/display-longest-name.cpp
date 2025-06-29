@@ -9,20 +9,19 @@ using namespace std;
 class Solution {
   public:
     string longest(vector<string>& arr) {
-        // code here
-        int n = arr.size();
-        string st;
-        int eleSize = 0;
-        for(int i = 0; i < n; i++)
-        {
-            int len = arr[i].length();
-            if(len > eleSize)
-            {
-                st = arr[i];
-                eleSize = len;
+        int n = arr.size();       // Get the size of the array
+        string st;                // Variable to store the longest string
+        int eleSize = 0;          // Variable to track the length of the longest string
+    
+        // Loop through each string in the array
+        for(int i = 0; i < n; i++) {
+            int len = arr[i].length();  // Get the length of the current string
+            if(len > eleSize) {         // If current string is longer than previous longest
+                st = arr[i];            // Update the longest string
+                eleSize = len;          // Update the max length
             }
         }
-        return st;
+        return st;  // Return the longest string found
     }
 };
 
