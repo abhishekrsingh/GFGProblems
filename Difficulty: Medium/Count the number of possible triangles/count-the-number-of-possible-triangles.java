@@ -1,45 +1,26 @@
-//{ Driver Code Starts
-import java.io.*;
-import java.util.*;
-
-class Geeks {
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(br.readLine());
-        for (int g = 0; g < t; g++) {
-            String[] str = (br.readLine()).trim().split(" ");
-            int arr[] = new int[str.length];
-            for (int i = 0; i < str.length; i++) {
-                arr[i] = Integer.parseInt(str[i]);
-            }
-            System.out.println(new Solution().countTriangles(arr));
-            System.out.println("~");
-        }
-    }
-}
-
-// } Driver Code Ends
-
-
-// User function Template for Java
-
 class Solution {
-    // Function to count the number of possible triangles.
-    static int countTriangles(int arr[]) {
-        // code here
-        Arrays.sort(arr);
-        int n=arr.length,ans=0;
-        for(int i=n-1;i>=2;i--){
-            int j=0,k=i-1;
-            while(j<k){
-                int twoSideSum=arr[j]+arr[k];
-                if(twoSideSum>arr[i]){
-                    ans+=k-j;
-                    k--;
+    public int countTriangles(int arr[]) {
+        int n = arr.length;
+        if (n < 3) return 0;
+
+        Arrays.sort(arr);  // Step 1: Sort array
+        int count = 0;
+
+        // Step 2: Fix the largest side
+        for (int k = n - 1; k >= 2; k--) {
+            int i = 0, j = k - 1;
+
+            while (i < j) {
+                if (arr[i] + arr[j] > arr[k]) {
+                    // all elements from i to j-1 with arr[j] and arr[k] form triangles
+                    count += (j - i);
+                    j--;
+                } else {
+                    i++;
                 }
-                else j++;
             }
         }
-        return ans;
+
+        return count;
     }
 }
