@@ -1,22 +1,9 @@
-//{ Driver Code Starts
-// Initial Template for C++
-
-#include <bits/stdc++.h>
-using namespace std;
-
-
-// } Driver Code Ends
-
-
 class Solution {
   public:
     string decodedString(string &s) {
         // code here
-        // Declare a string variable to store the decoded
-        // string
         string res = "";
     
-        // Traverse the encoded string character by character.
         for (int i = 0; i < s.length(); i++) {
     
             // If the current character is not a clostring
@@ -25,12 +12,7 @@ class Solution {
                 res.push_back(s[i]);
             }
     
-            // If the current character is a closing bracket
             else {
-              
-                // Create a temporary string to store the
-                // substring within the corresponding opening
-                // bracket.
                 string temp = "";
                 while (!res.empty() && res.back() != '[') {
                     temp.push_back(res.back());
@@ -67,23 +49,3 @@ class Solution {
         return res;
     }
 };
-
-
-//{ Driver Code Starts.
-
-int main() {
-    int t;
-    cin >> t;
-    while (t--) {
-        string s;
-        cin >> s;
-
-        Solution ob;
-        cout << ob.decodedString(s) << "\n";
-
-        cout << "~"
-             << "\n";
-    }
-    return 0;
-}
-// } Driver Code Ends
