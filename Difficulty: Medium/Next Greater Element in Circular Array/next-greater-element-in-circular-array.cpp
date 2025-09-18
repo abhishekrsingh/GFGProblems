@@ -1,24 +1,28 @@
 class Solution {
   public:
-    vector<int> nextLargerElement(vector<int>& arr) {
-        int         n = arr.size();             // Size of the array
-        vector<int> result(n, -1);              // Result initialized to -1s
-        stack<int>  st;                         // Stack to store indices of waiting elements
-
-        for (int i = 0; i < 2 * n; i++) {       // Traverse twice for circularity
-            int idx = i % n;                    // Actual index in arr
-            int num = arr[idx];                 // Current number
-
-            // While current num is bigger than arr at the top index
-            while (!st.empty() && num > arr[st.top()]) {
-                result[st.top()] = num;         // Assign it as the next greater
-                st.pop();                       // Remove that index
+    vector<int> nextGreater(vector<int> &arr) {
+        int n = arr.size();
+        vector<int> result(n, -1); // Initialize result with -1 (default when no greater element found)
+        stack<int> st; // Stack to keep track of potential next greater elements
+        
+        // Process the array in circular manner - traverse from right to left twice
+        for(int i = 2 * n - 1; i >= 0; i--) {
+            int idx = i % n; // Convert circular index to actual array index
+            
+            // Remove all elements from stack that are smaller than or equal to current element
+            // We only want to keep elements that are strictly greater than current
+            while(!st.empty() && st.top() <= arr[idx]) {
+                st.pop();
             }
-
-            if (i < n) {                        // Only push original indices on first pass
-                st.push(idx);                   // Add index to stack
+            
+            // If stack is not empty, top element is the next greater element
+            if(!st.empty()) {
+                result[idx] = st.top();
             }
+            
+            // Push current element to stack for future comparisons
+            st.push(arr[idx]);
         }
-        return result;                          // Return filled results
+        return result;
     }
 };
