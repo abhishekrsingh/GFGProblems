@@ -1,27 +1,37 @@
 class Solution {
-    public ArrayList<Integer> nextLargerElement(int[] arr) {
-        int n = arr.length;                        // Size of the array
+    public ArrayList<Integer> nextGreater(int[] arr) {
+        // code here
+        int n = arr.length;
+        int[] res = new int[n];
+        for (int i = 0; i < n; i++) {
+            res[i] = -1;
+        }
+
+        Stack<Integer> st = new Stack<>();
+        
+        for (int i = 2 * n - 1; i >= 0; i--) {
+            int curr = arr[i % n];
+
+            // Pop elements smaller 
+            // than or equal to current
+            while (!st.isEmpty() && st.peek() <= curr) {
+                st.pop();
+            }
+
+            // Assign next greater 
+            // if within first pass
+            if (i < n && !st.isEmpty()) {
+                res[i] = st.peek();
+            }
+
+            st.push(curr);
+        }
+
         ArrayList<Integer> result = new ArrayList<>();
-
-        for (int k = 0; k < n; k++) {              // Initialize result with -1s
-            result.add(-1);
+        for (int val : res) {
+            result.add(val);
         }
 
-        Stack<Integer> st = new Stack<>();         // Stack to store indices of waiting elements
-
-        for (int i = 0; i < 2 * n; i++) {          // Traverse twice for circularity
-            int idx = i % n;                       // Actual index in arr
-            int num = arr[idx];                    // Current number
-
-            // While current num is bigger than arr at the top index
-            while (!st.isEmpty() && num > arr[st.peek()]) {
-                result.set(st.pop(), num);         // Assign it as the next greater
-            }
-
-            if (i < n) {                           // Only push original indices on first pass
-                st.push(idx);                      // Add index to stack
-            }
-        }
-        return result;                             // Return filled results
+        return result;
     }
 }
