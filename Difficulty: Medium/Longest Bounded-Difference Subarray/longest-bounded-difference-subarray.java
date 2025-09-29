@@ -1,82 +1,40 @@
-//{ Driver Code Starts
-// Initial Template for Java
-import java.io.*;
-import java.util.*;
-import java.util.HashMap;
-
-
-// } Driver Code Ends
-
-
 class Solution {
-
     public ArrayList<Integer> longestSubarray(int[] arr, int x) {
-        ArrayList<Integer> result = new ArrayList<>();
-        int maxLength = 0;
-        int startIndex = 0;
         int n = arr.length;
-        int i =0 , j = 0;
-        while ( j < n) {
-            int maxVal = arr[i];
-            int minVal = arr[i];
-            for(int k = i ; k <= j ; k++) {
-                maxVal = Math.max(maxVal , arr[k]);
-                minVal = Math.min(minVal , arr[k]);
+
+        // maxHeap stores (-value, index), minHeap stores (value, index)
+        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) -> b[0] - a[0]);
+        PriorityQueue<int[]> minHeap = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+
+        int l = 0, bestLen = 0, bestStart = 0;
+
+        for (int r = 0; r < n; r++) {
+            maxHeap.offer(new int[]{arr[r], r});
+            minHeap.offer(new int[]{arr[r], r});
+
+            // shrink window while condition violated
+            while (!maxHeap.isEmpty() && !minHeap.isEmpty() && 
+                   maxHeap.peek()[0] - minHeap.peek()[0] > x) {
+                l++;
+                // remove elements that are outside window
+                while (!maxHeap.isEmpty() && maxHeap.peek()[1] < l) maxHeap.poll();
+                while (!minHeap.isEmpty() && minHeap.peek()[1] < l) minHeap.poll();
             }
-            if(maxVal - minVal <= x) {
-                if(j - i + 1 > maxLength) {
-                    maxLength = j - i + 1;
-                    startIndex = i;
-                }
-                j++;
-            } else {
-                i++;
+
+            // update answer if longer window found
+            int len = r - l + 1;
+            if (len > bestLen) {
+                bestLen = len;
+                bestStart = l;
             }
         }
-        for(int k=startIndex;k<startIndex+maxLength;k++) {
-            result.add(arr[k]);
+
+        // build result
+        ArrayList<Integer>result = new ArrayList<>();
+        for (int i = 0; i < bestLen; i++) {
+            result.add(arr[bestStart + i]);
         }
         return result;
+        
     }
 }
-
-
-//{ Driver Code Starts.
-public class Main {
-
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(br.readLine());
-        while (t-- > 0) {
-
-            String line = br.readLine();
-            String[] tokens = line.split(" ");
-
-            // Create an ArrayList to store the integers
-            ArrayList<Integer> array = new ArrayList<>();
-
-            // Parse the tokens into integers and add to the array
-            for (String token : tokens) {
-                array.add(Integer.parseInt(token));
-            }
-
-            int[] arr = new int[array.size()];
-            int idx = 0;
-            for (int i : array) arr[idx++] = i;
-
-            int k = Integer.parseInt(br.readLine());
-            // Create Solution object and find closest sum
-            Solution ob = new Solution();
-            ArrayList<Integer> ans = ob.longestSubarray(arr, k);
-
-            // Print the result as a space-separated string
-            for (int num : ans) {
-                System.out.print(num + " ");
-            }
-            System.out.println(); // New line after printing the results
-            System.out.println("~");
-        }
-    }
-}
-
-// } Driver Code Ends
