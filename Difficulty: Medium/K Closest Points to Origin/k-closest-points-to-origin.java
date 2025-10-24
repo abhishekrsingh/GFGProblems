@@ -1,65 +1,53 @@
-//{ Driver Code Starts
-import java.util.*;
-
-
-// } Driver Code Ends
-
 class Solution {
-    public int[][] kClosest(int[][] points, int k) {
-        int ans[][] = new int[k][2];
-        PriorityQueue<Pair>pq = new PriorityQueue<>((a,b)->a.sq-b.sq);
-        for(int p[]:points){
-            int sq = p[0]*p[0]+p[1]*p[1];
-            Pair pr = new Pair(sq,p);
-            pq.offer(pr);
-        }
-        while(k-- !=0){
-            ans[k] = pq.poll().pt;
-        }
-        return ans;
+    // Function to calculate squared distance from the origin
+    static int squaredDis(int[] point) {
+        return point[0] * point[0] + point[1] * point[1];
     }
-}
-class Pair{
-    int sq;
-    int pt[];
-    Pair(int sq,int pt[]){
-        this.sq = sq;
-        this.pt = pt;
-    }
-}
 
-//{ Driver Code Starts.
+    // Function to find k closest points to
+    // the origin
+    static ArrayList<ArrayList<Integer>> kClosest(int[][] points, int k) {
 
-public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        // Max heap to store points with their 
+        // squared distances
+        PriorityQueue<int[]> maxHeap = new PriorityQueue<>(
+            (a, b) -> b[0] - a[0]
+        );
 
-        int t = scanner.nextInt();
+        // Iterate through each point
+        for (int i = 0; i < points.length; i++) {
+            int dist = squaredDis(points[i]);
+            int[] entry = new int[]{dist, i}; // store index to retrieve point
 
-        while (t-- > 0) {
-            int k = scanner.nextInt();
-            int n = scanner.nextInt();
-            int[][] points = new int[n][2];
-            for (int i = 0; i < n; i++) {
-                points[i][0] = scanner.nextInt();
-                points[i][1] = scanner.nextInt();
-            }
-            Solution solution = new Solution();
-            int[][] ans = solution.kClosest(points, k);
+            if (maxHeap.size() < k) {
 
-            Arrays.sort(ans, (a, b) -> {
-                if (a[0] != b[0]) {
-                    return Integer.compare(a[0], b[0]);
+                // If the heap size is less than k, 
+                // insert the point
+                maxHeap.add(entry);
+            } else {
+
+                // If the heap size is k, compare with
+                // the top element
+                if (dist < maxHeap.peek()[0]) {
+
+                    // Replace the top element if the
+                    // current point is closer
+                    maxHeap.poll();
+                    maxHeap.add(entry);
                 }
-                return Integer.compare(a[1], b[1]);
-            });
-            for (int[] point : ans) {
-                System.out.println(point[0] + " " + point[1]);
             }
-            System.out.println("~");
         }
 
-        scanner.close();
+        // Take the k closest points from the heap
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        while (!maxHeap.isEmpty()) {
+            int idx = maxHeap.poll()[1];
+            ArrayList<Integer> temp = new ArrayList<>();
+            temp.add(points[idx][0]);
+            temp.add(points[idx][1]);
+            res.add(temp);
+        }
+
+        return res;
     }
 }
-// } Driver Code Ends
