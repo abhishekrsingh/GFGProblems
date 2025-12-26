@@ -1,62 +1,23 @@
-//{ Driver Code Starts
-// Initial function template for C++
-
-#include <bits/stdc++.h>
-using namespace std;
-
-
-// } Driver Code Ends
-// User function template for C++
-
 class Solution {
   public:
     int kthMissing(vector<int> &arr, int k) {
-        int s=0;
-        int e=arr.size()-1;
-        while(s<=e){
-            int mid=(s+e)/2;
-            int missing=arr[mid]-mid-1;
-            if(missing<k){
-                s=mid+1;
-            }
-            else e=mid-1;
+        // code here
+        int n=arr.size();
+        int left=0,right=n-1,mid;
+        if(arr[0]>k){
+            return k;
         }
-        return k + s;
+        while(left<=right){
+            mid=(left+right)/2;
+            if((arr[mid]-(mid+1))<k){
+                left=mid+1;
+            }else{
+                right=mid-1;
+            }
+        }
+        if(right==-1){
+            return k;
+        }
+        return arr[right]+(k-(arr[right]-(right+1)));
     }
 };
-
-//{ Driver Code Starts.
-
-int main() {
-    int test_case;
-    cin >> test_case;
-    cin.ignore();
-    while (test_case--) {
-
-        int d;
-        vector<int> arr, brr, crr;
-        string input;
-        getline(cin, input);
-        stringstream ss(input);
-        int number;
-        while (ss >> number) {
-            arr.push_back(number);
-        }
-        getline(cin, input);
-        ss.clear();
-        ss.str(input);
-        while (ss >> number) {
-            crr.push_back(number);
-        }
-        d = crr[0];
-        int n = arr.size();
-        Solution ob;
-        int ans = ob.kthMissing(arr, d);
-        cout << ans << endl;
-
-        cout << "~"
-             << "\n";
-    }
-    return 0;
-}
-// } Driver Code Ends
