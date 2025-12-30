@@ -1,132 +1,72 @@
-//{ Driver Code Starts
-#include <iostream>
-#include <sstream>
-#include <string>
-#include <vector>
-using namespace std;
-
-/* Linked list Node */
-struct Node {
+/*
+class Node {
+  public:
     int data;
-    struct Node* next;
-
+    Node* next;
     Node(int x) {
         data = x;
         next = NULL;
     }
 };
-
-Node* buildList() {
-    vector<int> arr;
-    string input;
-    getline(cin, input);
-    stringstream ss(input);
-    int number;
-    while (ss >> number) {
-        arr.push_back(number);
-    }
-    if (arr.empty()) {
-        return NULL;
-    }
-    int val = arr[0];
-    int size = arr.size();
-
-    Node* head = new Node(val);
-    Node* tail = head;
-
-    for (int i = 1; i < size; i++) {
-        val = arr[i];
-        tail->next = new Node(val);
-        tail = tail->next;
-    }
-
-    return head;
-}
-
-void printList(Node* n) {
-    while (n) {
-        cout << n->data << " ";
-        n = n->next;
-    }
-    cout << endl;
-}
-
-
-// } Driver Code Ends
-/* node for linked list:
-
-struct Node {
-    int data;
-    struct Node* next;
-    Node(int x) {
-        data = x;
-        next = NULL;
-    }
-};
-
 */
 
 class Solution {
   public:
-    Node* reverseList(struct Node* head) {
-        //CodeGenius
-        Node *curr=head, *prev=NULL, *next=curr->next;
-        while(curr){
-            next=curr->next;
-            curr->next=prev;
-            prev=curr;
-            curr=next;
+    // Function to reverse a linked list
+    Node* reverse(Node* head) {
+        Node *prev = nullptr, *curr = head, *next;
+        while (curr != nullptr) {
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
         }
         return prev;
     }
-    Node* addTwoLists(Node* num1, Node* num2) {
-        //CodeGenius
-        num1=reverseList(num1);
-        num2=reverseList(num2);
-        int carry=0;
-        Node* ans=new Node(0);
-        Node* first=ans;
-        while(num1 || num2 || carry){
-            int sum=carry;
-            if(num1){
-                sum+=num1->data;
-                num1=num1->next;
+    
+    Node* addTwoLists(Node* head1, Node* head2) {
+    
+        // Reverse both lists to start from least significant digit
+        head1 = reverse(head1);
+        head2 = reverse(head2);
+    
+        Node* sum = NULL;
+        int carry = 0;
+    
+        // Traverse both lists until all digits and carry are processed
+        while (head1 != NULL || head2 != NULL || carry != 0) {
+            int newVal = carry;
+    
+            if (head1) {
+                newVal += head1->data;
+                head1 = head1->next;
             }
-            if(num2){
-                sum+=num2->data;
-                num2=num2->next;
+    
+            if (head2) {
+                newVal += head2->data;
+                head2 = head2->next;
             }
-            ans->data=(sum%10);
-            carry=sum/10;
-            if(num1 || num2 || carry){
-                ans->next=new Node(0);
-                ans=ans->next;
-            }
+    
+            carry = newVal / 10;
+            newVal %= 10;
+    
+            // Insert the new digit at the front of the result list
+            Node* newNode = new Node(newVal);
+            newNode->next = sum;
+            sum = newNode;
         }
-        reverseList(first);
-        while(ans->data==0 && ans->next) ans=ans->next;
-        return ans;
-        
+    
+        // Remove leading zeros, if any
+        while (sum != NULL && sum->data == 0) {
+            Node* temp = sum;
+            sum = sum->next;
+            delete temp;
+        }
+    
+        // If result is empty, return single node with 0
+        if (sum == NULL) {
+            return new Node(0);
+        }
+        return sum;
     }
 };
-
-
-//{ Driver Code Starts.
-
-int main() {
-    int t;
-    cin >> t;
-    cin.ignore(); // To ignore the newline character after the integer input
-
-    while (t--) {
-        Node* num1 = buildList();
-        Node* num2 = buildList();
-        Solution ob;
-        Node* res = ob.addTwoLists(num1, num2);
-        printList(res);
-        cout << "~" << endl;
-    }
-    return 0;
-}
-
-// } Driver Code Ends
