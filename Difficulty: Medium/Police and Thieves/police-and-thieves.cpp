@@ -1,36 +1,26 @@
 class Solution {
   public:
-     int catchThieves(vector<char>& arr, int k) {
-        int n     = arr.size();
-        int i     = 0;    // pointer to scan for 'P'
-        int j     = 0;    // pointer to scan for 'T'
-        int count = 0;    // total thieves caught
-
-        while (i < n && j < n) {
-            // move i to the next policeman
-            while (i < n && arr[i] != 'P') {
-                i++;
-            }
-            // move j to the next thief
-            while (j < n && arr[j] != 'T') {
-                j++;
-            }
-
-            // if both pointers are valid and within k distance, catch!
-            if (i < n && j < n && abs(i - j) <= k) {
-                count++;
+    int catchThieves(vector<char> &arr, int k) {
+        // Code here
+        int n=arr.size(),i=0,j=0,cnt=0;
+        
+        while(i<n && j<n){
+            while(i<n && arr[i]!='P')i++;
+            while(j<n && arr[j]!='T')j++;
+            
+            if(i==n || j==n)break;
+            
+            if(abs(i-j)<=k){
                 i++;
                 j++;
-            }
-            // if thief is too far left, move thief pointer right
-            else if (j < n && j < i) {
+                cnt++;
+            }else if(j<i-k){
                 j++;
-            }
-            // if policeman is too far left, move policeman pointer right
-            else if (i < n && i < j) {
+            }else{
                 i++;
             }
         }
-        return count;
+        
+        return cnt;
     }
 };
