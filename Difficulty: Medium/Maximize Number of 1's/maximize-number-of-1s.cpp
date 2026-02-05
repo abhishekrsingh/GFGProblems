@@ -2,33 +2,23 @@ class Solution {
   public:
     int maxOnes(vector<int>& arr, int k) {
         // code here
-        int res = 0;
-
-        // Start and end pointer of the window 
-        int start = 0, end = 0; 
+        int n = arr.size();
+        int i=0, ctr=0, ans=0;
         
-        // Counter to keep track of zeros in current window
-        int cnt = 0;
-        
-        while (end < arr.size()) {
-            if (arr[end] == 0)
-                cnt++;
-            
-            // Shrink the window from left if number of 
-            // zeroes are greater than k
-            while (cnt > k) {
-                if (arr[start] == 0)
-                    cnt--;
-                    
-                start++;
+        for (int j=0; j<n; j++) {
+            int w_size = j-i+1;
+            if (arr[j]==0) {
+                ctr++;
+                while (ctr>k) {
+                    if(arr[i]==0) ctr--;
+                    i++;
+                    w_size--;
+                }
             }
-            
-            res = max(res, (end - start + 1));
-            
-            // Increment end pointer to expand the window
-            end++; 
+            // cout << w_size << ' ';
+            ans = max(ans, w_size);
         }
-        
-        return res; 
+        // cout << '\n';
+        return ans;
     }
 };
