@@ -1,33 +1,15 @@
 class Solution {
     public int maxOnes(int arr[], int k) {
-        // code here
-        int res = 0;
-
-        // Start and end pointer of the window
-        int start = 0, end = 0;
-
-        // Counter to keep track of zeros in current window
-        int cnt = 0;
-
-        while (end < arr.length) {
-            if (arr[end] == 0)
-                cnt++;
-
-            // Shrink the window from left if
-            // no. of zeroes are greater than k
-            while (cnt > k) {
-                if (arr[start] == 0)
-                    cnt--;
-
-                start++;
+        int c = 0,i = 0,j = 0,ans = 0;
+        while(j<arr.length){
+            while(arr[j]==0 && c+1>k){
+                if(arr[i]==0) c--;
+                i++;
             }
-
-            res = Math.max(res, (end - start + 1));
-          
-            // Increment the end pointer to expand the window
-            end++;
+            if(arr[j]==0) c++;
+            ans = Math.max(ans,j-i+1);
+            j++;
         }
-
-        return res;
+        return ans;
     }
 }
