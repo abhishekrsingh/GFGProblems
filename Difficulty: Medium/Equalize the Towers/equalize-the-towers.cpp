@@ -1,43 +1,31 @@
 class Solution {
   public:
-     // Helper function to compare cost at mid vs mid + 1
-    bool check(vector<int>& heights, vector<int>& cost, int mid) {
-        long long costMid   = 0;
-        long long costMidP1 = 0;
-
-        for (int i = 0; i < heights.size(); i++) {
-            costMid   += (long long)abs(heights[i] - mid) * cost[i];
-            costMidP1 += (long long)abs(heights[i] - (mid + 1)) * cost[i];
+    int getCost(vector<int>& heights, vector<int>& cost, int h){
+        int cst = 0;
+        for(int i = 0;i<heights.size();i++){
+            cst += cost[i]*(abs(heights[i] - h));
         }
-
-        return costMid < costMidP1;  // true if mid gives smaller cost than mid+1 (move left)
+        return cst;
     }
-    
     int minCost(vector<int>& heights, vector<int>& cost) {
-        // Define search boundaries for binary search
-        int low  = *min_element(heights.begin(), heights.end());
-        int high = *max_element(heights.begin(), heights.end());
-
-        int targetH = 0;  // best height found
-
-        while (low <= high) {
-            int mid = (low + high) / 2;
-
-            // Move toward the side with lower cost
-            if (check(heights, cost, mid)) {
-                targetH = mid;
-                high    = mid - 1;
-            } else {
-                low = mid + 1;
+        int l = 1, r = 1e4+1, mincost = 0;
+        while(l<=r){
+            int m = l+(r-l)/2;
+            
+            int prev = getCost(heights, cost, m-1);
+            int curr = getCost(heights, cost, m);
+            int next = getCost(heights, cost, m+1);
+            
+            if(prev>=curr and curr<=next){
+                return curr;
+            }
+            if(prev>=curr and curr>=next){
+                l = m+1;
+            }
+            else{
+                r = m-1;
             }
         }
-
-        // Calculate final cost using chosen target height
-        long long result = 0;
-        for (int i = 0; i < heights.size(); i++) {
-            result += (long long)abs(heights[i] - targetH) * cost[i];
-        }
-
-        return (int)result;
+        return -1;
     }
 };
