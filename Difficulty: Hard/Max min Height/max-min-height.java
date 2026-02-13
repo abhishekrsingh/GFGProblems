@@ -1,48 +1,52 @@
 class Solution {
-    private boolean isPossible(int[] arr, int k, int w, int targetHeight) {
-        int n = arr.length;
-        int[] water = new int[n + 1]; // Difference array for efficient range addition
-        int daysUsed  = 0;
-        int currWater = 0;
-
-        for (int i = 0; i < n; i++) {
-            currWater += water[i]; // Add the effect of previous waterings
-            int currHeight = arr[i] + currWater;
-            if (currHeight < targetHeight) {
-                int need = targetHeight - currHeight; // Water needed at this point
-                daysUsed += need;
-                if (daysUsed > k) {                   // If exceeded allowed waterings, not possible
-                    return false;
-                }
-                currWater += need;        // Add immediate effect
-                water[i]  += need;        // Start effect at i
-                if (i + w <= n) {
-                    water[i + w] -= need; // End effect after window
-                }
+    public int maxMinHeight(int[] arr, int k, int w) {
+        // code here
+        int min=0;
+        int max=Integer.MAX_VALUE;
+        int ans=0;
+        while(min<=max)
+        {
+            int mid=min+(max-min)/2;
+            if(isPossible(arr,k,w,mid))
+            {
+                ans=mid;
+                min=mid+1;
+            }
+            else{
+                max=mid-1;
             }
         }
-        return true;
+        return ans;
+        
     }
     
-    // Main function to maximize the minimum height
-    public int maxMinHeight(int[] arr, int k, int w) {
-        int low = Integer.MAX_VALUE;
-
-        for (int v : arr) {
-            low = Math.min(low, v);
-        }
-        int high = low + k;
-
-        int result = 0;
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            if (isPossible(arr, k, w, mid)) {
-                result = mid;      // Try to go higher
-                low    = mid + 1;
-            } else {
-                high = mid - 1;    // Try lower
+    public boolean isPossible(int[]arr,int k,int w,int h)
+    {
+        int n=arr.length;
+        int []prefix= new int[n+1];
+        int days=0;
+        
+        for(int i=0;i<n;i++)
+        {
+            if(i>0)
+            {
+                prefix[i]+=prefix[i-1];
+            }
+            if(prefix[i]+arr[i]<h)
+            {
+                int req=h-(prefix[i]+arr[i]);
+                prefix[i]+=req;
+                days+=req;
+                if(days>k)
+        return false;
+                if(i+w<=n)
+                {
+                    prefix[i+w]-=req;
+                }
             }
         }
-        return result;
+        
+        
+        return true;
     }
 }
