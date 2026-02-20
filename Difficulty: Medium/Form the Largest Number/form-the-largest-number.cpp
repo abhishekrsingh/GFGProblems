@@ -1,6 +1,5 @@
 class Solution {
   public:
-    // Custom compare function
     static bool compare(string a, string b) {
         return (a + b) > (b + a);
     }
