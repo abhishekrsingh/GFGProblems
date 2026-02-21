@@ -1,28 +1,26 @@
 class Solution {
     public String findLargest(int[] arr) {
         // code here
-        int n = arr.length;
-        String[] newArr = new String[n];
-        for(int i=0;i<n;i++)
-        {
-            newArr[i] = String.valueOf(arr[i]);
+        // Step 1: Convert int array to String array
+        String[] str = new String[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            str[i] = String.valueOf(arr[i]);
         }
         
-        Arrays.sort(newArr,(a,b)-> (b+a).compareTo(a+b));
+        // Step 2: Custom sort
+        Arrays.sort(str, (a, b) -> (b + a).compareTo(a + b));
         
-        StringBuilder sb = new StringBuilder();
-        
-        for(String ele:newArr)
-        {
-            sb.append(ele);
+        // Step 3: Edge case (all zeros)
+        if (str[0].equals("0")) {
+            return "0";
         }
         
-        int index = 0;
-        while(index<sb.length() && sb.charAt(index)=='0')
-        index++;
+        // Step 4: Concatenate result
+        StringBuilder result = new StringBuilder();
+        for (String s : str) {
+            result.append(s);
+        }
         
-        String res = sb.substring(index);
-        
-        return res.length()==0?"0":res;
+        return result.toString();
     }
 }
