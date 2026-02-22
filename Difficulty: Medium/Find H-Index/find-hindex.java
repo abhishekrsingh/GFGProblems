@@ -1,21 +1,17 @@
-
-
-// User function Template for Java
 class Solution {
-    // Function to find hIndex
     public int hIndex(int[] citations) {
-        int len  = citations.length;
-        int[] bucket = new int[len+1];
-        for(int c : citations){
-            bucket[Math.min(c, len)]++;
+        // code here
+        int n=citations.length;
+        Arrays.sort(citations); int h=0;
+        for(int i=n-1;i>=0;--i){
+           
+            if(citations[i]>=(n-i)){
+                h=n-i;
+            }
+            else{
+                break;
+            }
         }
-        int count = 0;
-         for(int i = len; i>= 0; i--){
-             count +=bucket[i];
-             if(count >= i){
-             return i;
-         }
-      }
-      return 0;
+        return h;
     }
 }
