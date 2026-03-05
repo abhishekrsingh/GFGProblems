@@ -1,32 +1,19 @@
 class Solution {
   public:
-    int longestKSubstr(string& s, int k) {
-        int n = s.length();
-        unordered_map<char, int> mp; // map to store frequency of chars in current window
-
-        int i = 0;                   // left pointer of window
-        int j = 0;                   // right pointer of window
-
-        int result = -1;             // store max length found
-
-        while (j < n) {
-            mp[s[j]]++;   // include s[j] in window
-
-            // if more than k distinct, shrink from left
-            if (mp.size() > k) {
-                mp[s[i]]--;          // decrement freq of s[i]
-                if (mp[s[i]] == 0) { // if freq becomes 0, remove from map
-                    mp.erase(s[i]);
-                }
-                i++;               // move left pointer
+    int longestKSubstr(string &s, int k) {
+        // code here
+        vector<int>freq(26,0);
+        int unique =0, maxi=-1;
+        for(int i=0,j=0 ; j<s.size();j++){
+            freq[s[j]-'a']++;
+            if(freq[s[j]-'a']==1) unique++;
+            while(unique>k){
+                freq[s[i]-'a']--;
+                if(freq[s[i]-'a']==0) unique--;
+                i++;
             }
-
-            // if exactly k distinct, update result
-            if (mp.size() == k) {
-                result = max(result, j - i + 1);
-            }
-            j++;  // expand right pointer
+            if(unique==k) maxi=max(maxi,j-i+1);
         }
-        return result;
+        return maxi;
     }
 };
