@@ -3,22 +3,25 @@ class Solution {
     int kBitFlips(vector<int>& arr, int k) {
         // code here
         int n = arr.size();
-        vector<int> isFlipped(n, 0); 
-        int flips = 0; 
-        int res = 0;   
-
+        queue<int> q;
+        int ans = 0;
+    
         for (int i = 0; i < n; i++) {
-            if (i >= k) {
-                flips ^= isFlipped[i - k];
+            
+            if (!q.empty() && q.front() + k == i) {
+                q.pop();
             }
-            if ((arr[i] ^ flips) == 0) {
-                if (i + k > n) return -1; 
-                res++;
-                flips ^= 1;        
-                isFlipped[i] = 1;  
+    
+            if ((arr[i] + q.size()) % 2 == 0) {
+                if (i + k > n)
+                {
+                    return -1;
+                }
+                ans++;
+                q.push(i);
             }
         }
-
-        return res;
+    
+        return ans;
     }
 };
