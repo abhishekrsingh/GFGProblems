@@ -1,73 +1,50 @@
-//{ Driver Code Starts
-import java.io.*;
-import java.lang.*;
-import java.util.*;
-
-class GFG {
-    public static void main(String[] args) throws IOException {
-        Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
-
-        while (t-- > 0) {
-            int n = sc.nextInt();
-            int m = sc.nextInt();
-
-            int mat[][] = new int[n][m];
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < m; j++) mat[i][j] = sc.nextInt();
-            }
-            Solution obj = new Solution();
-            int ans = obj.orangesRotting(mat);
-            System.out.println(ans);
-            System.out.println("~");
-        }
-    }
-}
-// } Driver Code Ends
-
-
 class Solution {
-    public int orangesRotting(int[][] mat) {
-        // Code here
-              if (mat == null || mat.length == 0) return -1;
-
-        int n = mat.length;
-        int m = mat[0].length;
+    public static final int[][] dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+    
+    public int orangesRot(int[][] mat) {
+        int m = mat.length, n = mat[0].length;
+        int freshOranges = 0;
         Queue<int[]> queue = new LinkedList<>();
-        int freshCount = 0;
-        int time = 0;
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
+        
+        for (int i=0; i < m; i++) {
+            for (int j=0; j < n; j++) {
                 if (mat[i][j] == 2) {
-                    queue.add(new int[]{i, j, 0}); 
+                    queue.offer(new int[]{i, j});
                 } else if (mat[i][j] == 1) {
-                    freshCount++;
+                    freshOranges++;
                 }
             }
         }
-
-        if (freshCount == 0) return 0;
-
-        int[] dRow = {-1, 1, 0, 0}; 
-        int[] dCol = {0, 0, -1, 1}; 
-
+        
+        int time = 0;
         while (!queue.isEmpty()) {
-            int[] cell = queue.poll();
-            int i = cell[0], j = cell[1], currTime = cell[2];
-            time = Math.max(time, currTime);
-
-            for (int d = 0; d < 4; d++) {
-                int ni = i + dRow[d], nj = j + dCol[d];
-
-                if (ni >= 0 && ni < n && nj >= 0 && nj < m && mat[ni][nj] == 1) {
-                    mat[ni][nj] = 2; 
-                    freshCount--; 
-                    queue.add(new int[]{ni, nj, currTime + 1}); // Add to queue with new time
+            if (freshOranges == 0) return time;
+            int size = queue.size();
+            while (size-- > 0) {
+                int[] top = queue.poll();
+                int row = top[0];
+                int col = top[1];
+                
+                for (int[] dir : dirs) {
+                    int nRow = row + dir[0];
+                    int nCol = col + dir[1];
+                    
+                    if (isWithinBounds(mat, nRow, nCol) && mat[nRow][nCol] == 1) {
+                        mat[nRow][nCol] = 2;
+                        queue.offer(new int[]{nRow, nCol});
+                        freshOranges--;
+                    }
                 }
+                
             }
+            time++;
         }
-
-        return freshCount == 0 ? time : -1;
+        
+        return freshOranges == 0 ? time : -1;
+        
+    }
+    
+    private boolean isWithinBounds(int[][] mat, int row, int col) {
+        return row >= 0 && row < mat.length && col >= 0 && col < mat[0].length;
     }
 }
