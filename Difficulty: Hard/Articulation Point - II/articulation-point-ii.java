@@ -1,31 +1,3 @@
-//{ Driver Code Starts
-import java.util.*;
-
-public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int tc = sc.nextInt();
-        while (tc-- > 0) {
-            int V = sc.nextInt();
-            int E = sc.nextInt();
-            int[][] edges = new int[E][2];
-            for (int i = 0; i < E; i++) {
-                edges[i][0] = sc.nextInt();
-                edges[i][1] = sc.nextInt();
-            }
-
-            Solution obj = new Solution();
-            ArrayList<Integer> ans = obj.articulationPoints(V, edges);
-            Collections.sort(ans);
-            for (int val : ans) {
-                System.out.print(val + " ");
-            }
-            System.out.println();
-            System.out.println("~");
-        }
-    }
-}
-// } Driver Code Ends
 
 
 class Solution {
