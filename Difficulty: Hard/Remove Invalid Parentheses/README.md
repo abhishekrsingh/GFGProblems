@@ -7,7 +7,7 @@
 <p><span style="font-size: 14pt;"><span style="font-size: 14pt;">Remove the </span><strong style="font-size: 14pt;">minimum</strong><span style="font-size: 14pt;"> number of invalid parentheses from <strong>s</strong> so that the resulting string becomes valid.&nbsp; Return<em> </em></span><span style="font-size: 14pt;">all the possible </span><span style="font-size: 18.6667px;"><strong>distinct </strong>valid strings</span><span style="font-size: 14pt;">&nbsp;in </span><span style="font-size: 14pt;">lexicographically</span><span style="font-size: 14pt;">&nbsp;</span><span style="font-size: 14pt;">sorted order.</span></span></p>
 <p><span style="font-size: 18px;"><strong>Examples :</strong></span></p>
 <pre><span style="font-size: 18px;"><strong style="font-size: 18px;">Input: </strong><span style="font-size: 18px;"> = "()())()"
-</span><strong style="font-size: 18px;">Output: </strong><span style="font-size: 18px;">["(())()", "()()()"]<br></span><strong style="font-size: 18px;">Explanation: <br></strong><span style="font-size: 18px;">The string "()())()" has one extra ')', making it invalid. By removing one ')', we can make it valid in two ways:<br>Remove the 3rd index ')' -&gt; "(())()"
+</span><strong style="font-size: 18px;">Output: </strong><span style="font-size: 18px;">["(())()", "()()()"]<br></span><strong style="font-size: 18px;">Explanation: <br></strong><span style="font-size: 18px;">The string "()())()" has one extra ')', making it invalid. By removing one ')', we can make it valid in two ways:<br>Remove the 1st index ')' -&gt; "(())()"
 Remove the 4th index ')' -&gt; "()()()"
 Both are valid and require the minimum removals.</span></span></pre>
 <pre><span style="font-size: 18px;"><strong>Input: </strong>s = "(a)())()"
