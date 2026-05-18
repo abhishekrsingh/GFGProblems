@@ -6,6 +6,7 @@
 <li><span style="font-size: 18px;">An empty array is also a beautiful array. </span></li>
 <li><span style="font-size: 18px;"><span style="font-size: 14pt;">There can be multiple beautiful output arrays. For consistencty with the test cases, scan the array from left to right for removing two adjacent.</span></span></li>
 </ul>
+<p><strong><span style="font-size: 18px;"><span style="font-size: 14pt;">Note:&nbsp;</span></span></strong><span style="font-size: 18.6667px;">0 is considered a positive number in this context.</span></p>
 <p><span style="font-size: 18px;"><strong>Examples:</strong></span></p>
 <pre><span style="font-size: 18px;"><strong>Input: </strong>arr[] = [4, 2,-2, 1] <strong>
 Output: </strong>[4, 1]
