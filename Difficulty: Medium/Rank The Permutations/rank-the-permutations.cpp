@@ -1,27 +1,37 @@
 class Solution {
   public:
+    // Helper Function: Factorial calculate karne ke liye
+    long long getFactorial(int n) {
+        long long fact = 1;
+        for (int i = 1; i <= n; i++) {
+            fact *= i;
+        }
+        return fact;
+    }
+    
     long long findRank(string& s) {
-        // code here
         int n = s.size();
-        long long int fact[n+1] = {0},ans = 0;
-        long long int rank[n] = {0};
-        fact[0] = 1;
-        for(int i=1; i<=n; i++)
-        {
-            fact[i] = fact[i-1]*i;
-        }
-        for(int i=0; i<n-1; i++)
-        {
+        long long ans = 0;
+        
+        // Har character ke liye loop chalayenge
+        for (int i = 0; i < n; i++) {
             int count = 0;
-            for(int j=i+1; j<n; j++)
-            {
-                if(s[i]>s[j]) count++;
+            
+            // s[i] ke right side mein jitne chote characters hain, unhe count karo
+            for (int j = i + 1; j < n; j++) {
+                if (s[i] > s[j]) {
+                    count++; // Chota character mila, count badhao
+                }
             }
-            rank[i] = count;
+            
+            // Bache hue characters ke total permutations nikaalo
+            long long remaining_slots_factorial = getFactorial(n - 1 - i);
+            
+            // Ans mein combinations add karo
+            ans += count * remaining_slots_factorial;
         }
-        for(int i=0; i<n; i++){
-            ans += rank[i]*fact[n-1-i];
-        }
-        return ans+1;
+        
+        // 1-based index rank ke liye final ans mein +1 return karo
+        return ans + 1;
     }
 };
