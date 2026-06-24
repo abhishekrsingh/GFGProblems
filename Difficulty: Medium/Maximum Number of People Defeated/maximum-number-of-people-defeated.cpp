@@ -1,18 +1,15 @@
 class Solution {
   public:
     int maxPeopleDefeated(int p) {
-        long long low = 0, high = 1000; // sufficient for p <= 3e8
-    
-        while (low <= high) {
-            long long mid = low + (high - low) / 2;
-            long long sum = mid * (mid + 1) * (2 * mid + 1) / 6;
-    
-            if (sum <= p)
-                low = mid + 1;
-            else
-                high = mid - 1;
+        // Code Here
+        int i = 1, cnt = 0;
+
+        while (i*i <= p){
+            cnt++;
+            p -= i*i;
+            i++;
         }
-    
-        return high;
+
+        return cnt;
     }
 };
