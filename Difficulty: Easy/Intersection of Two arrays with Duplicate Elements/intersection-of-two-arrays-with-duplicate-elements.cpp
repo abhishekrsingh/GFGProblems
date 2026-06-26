@@ -1,65 +1,43 @@
-//{ Driver Code Starts
-#include <bits/stdc++.h>
-using namespace std;
-
-
-// } Driver Code Ends
 class Solution {
   public:
-    vector<int> intersectionWithDuplicates(vector<int>& a, vector<int>& b) {
+    vector<int> intersect(vector<int>& a, vector<int>& b) {
         // code here
-        vector<int> ans;
-        unordered_map<int,int> mm;
-        for(int x:a)mm[x]=1;
-        for(int x:b){
-            if(mm[x]){
-                ans.push_back(x);
-                mm[x]=0;
+        int n = a.size();
+        int m = b.size();
+        sort(a.begin(), a.end());
+        sort(b.begin(), b.end());
+        set<int> st;
+        int i=0, j=0;
+        while(i<n && j<m)
+        {
+            if(a[i] == b[j])
+            {
+                st.insert(a[i]);
+                i++; j++;
+            }else if(a[i] < b[j]){
+                i++;
+            }else{
+                j++;
             }
         }
-        return ans;
+        vector<int> result(st.begin(), st.end());
+        return result;
     }
+    // vector<int> intersect(vector<int>& a, vector<int>& b) {
+    //     // code here
+    //     int n = a.size();
+    //     int m = b.size();
+    //     vector<int> storeA(a.begin(), a.end());
+    //     set<int> result;
+    //     for(int i=0; i<m; i++)
+    //     {
+    //         auto it = find(storeA.begin(), storeA.end(), b[i]);
 
+    //         if (it != storeA.end()) {
+    //             result.insert(b[i]);
+    //         } 
+    //     }
+    //     `vector<int> finalresult(result.begin(), result.end());
+    //     return finalresult;
+    // }
 };
-
-//{ Driver Code Starts.
-
-int main() {
-    int t;
-    cin >> t;
-    cin.ignore();
-    while (t--) {
-        vector<int> arr1, arr2;
-        string input;
-
-        // Read first array
-        getline(cin, input);
-        stringstream ss(input);
-        int number;
-        while (ss >> number) {
-            arr1.push_back(number);
-        }
-
-        // Read second array
-        getline(cin, input);
-        stringstream ss2(input);
-        while (ss2 >> number) {
-            arr2.push_back(number);
-        }
-
-        Solution ob;
-        vector<int> res = ob.intersectionWithDuplicates(arr1, arr2);
-        sort(res.begin(), res.end());
-
-        if (res.size() == 0) {
-            cout << "[]" << endl;
-        } else {
-            for (auto it : res)
-                cout << it << " ";
-            cout << endl;
-        }
-        cout << "~" << endl;
-    }
-    return 0;
-}
-// } Driver Code Ends
