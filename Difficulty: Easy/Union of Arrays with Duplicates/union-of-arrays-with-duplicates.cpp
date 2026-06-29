@@ -1,31 +1,16 @@
 class Solution {
   public:
     vector<int> findUnion(vector<int>& a, vector<int>& b) {
-        unordered_set<int> seen;
-        vector<int> result;
+        unordered_set<int> st;
         
-        // Reserve space to avoid reallocations
-        result.reserve(a.size() + b.size());
+        // 'a' ke saare elements set mein daal do
+        for(auto x: a) st.insert(x);
         
-        // Process first array
-        for(int x : a) {
-            if(seen.find(x) == seen.end()) {
-                seen.insert(x);
-                result.push_back(x);
-            }
-        }
+        // 'b' ke saare elements set mein daal do (duplicates apne aap ignore ho jayenge)
+        for(auto x: b) st.insert(x);
         
-        // Process second array
-        for(int x : b) {
-            if(seen.find(x) == seen.end()) {
-                seen.insert(x);
-                result.push_back(x);
-            }
-        }
-        
-        // Sort if order is required
-        sort(result.begin(), result.end());
-        
+        // Set ko vector mein convert karke return kar do
+        vector<int> result(st.begin(), st.end());
         return result;
     }
 };
