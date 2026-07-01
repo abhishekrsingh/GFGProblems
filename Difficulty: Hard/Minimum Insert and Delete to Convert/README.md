@@ -1,5 +1,9 @@
-<h2><a href="https://www.geeksforgeeks.org/problems/minimum-insertions-to-make-two-arrays-equal/1">Minimum Insert and Delete to Convert</a></h2><h3>Difficulty Level : Difficulty: Hard</h3><hr><div class="problems_problem_content__Xm_eO" style="--text-color: var(--problem-text-color);"><p><span style="font-size: 18px;">Given two arrays <strong>a[]</strong> and <strong>b[] </strong>of size n and m respectively, find the minimum number of <strong>insertions </strong>and <strong>deletions </strong>on the array a[], required to make both the arrays <strong>identical</strong>.</span></p>
-<p><span style="font-size: 18px;"><strong>Note:</strong> Array <strong>b[]</strong> is sorted and all its elements are distinct, operations can be performed at any index not necessarily at the end.</span></p>
+<h2><a href="https://www.geeksforgeeks.org/problems/minimum-insertions-to-make-two-arrays-equal/1">Minimum Insert and Delete to Convert</a></h2><h3>Difficulty Level : Difficulty: Hard</h3><hr><div class="problems_problem_content__Xm_eO" style="--text-color: var(--problem-text-color);"><p><span style="font-size: 18px;">Given two arrays <strong>a[]</strong> and <strong>b[] </strong>of size n and m respectively, find the minimum insertions and deletions on the array a[], required to make both the arrays identical.</span></p>
+<ul>
+<li><span style="font-size: 18px;">The array </span><span style="font-size: 18px;">b[] is sorted and all its elements are distinct.</span></li>
+<li><span style="font-size: 18px;">The array a[] may or may not be sorted and may have duplicates.</span></li>
+<li><span style="font-size: 18px;">Operations can be performed at any index in a[] not necessarily at the end.</span></li>
+</ul>
 <p><span style="font-size: 18px;"><strong>Examples :</strong></span></p>
 <pre><span style="font-size: 18px;"><strong>Input: </strong>a[] = [1, 2, 5, 3, 1], b[] = [1, 3, 5]
 <strong>Output: </strong>4
