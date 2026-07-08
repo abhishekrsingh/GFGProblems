@@ -1,64 +1,43 @@
-//{ Driver Code Starts
-#include <bits/stdc++.h>
-using namespace std;
-
-
-// } Driver Code Ends
 class Solution {
   public:
     vector<int> subarraySum(vector<int> &arr, int target) {
-        int s=0,e=0;
-        int sum=0;
-        vector<int>ans;
-        for(int i=0;i<arr.size();i++){
-            sum+=arr[i];
-           // if(sum<target) // ignore
-           if(sum>=target){
-               e=i;
-               while(sum>target){
-                   sum-=arr[s];
-                   ++s;
-               }
-               if(sum==target){
-                   ans.push_back(s+1);
-                   ans.push_back(e+1);
-                   return ans;
-               }
-           }
+        // code here
+        int n=arr.size();
+        int i=0, j=0, current_sum=0;
+        while(j<n)
+        {
+            current_sum += arr[j];
+            while(current_sum > target && i<j)
+            {
+                current_sum -= arr[i];
+                i++;
+            }
+            if(current_sum == target){
+                return {i+1, j+1};
+            }
+            j++;
         }
+        
         return {-1};
     }
+    
+    //O(n^2)
+    // vector<int> subarraySum(vector<int> &arr, int target) {
+    //     // code here
+    //     int n=arr.size();
+    //     vector<int> result;
+    //     for(int i=0; i<n; i++){
+    //         int currentSum = 0;
+    //         for(int j=i; j<n; j++)
+    //         {
+    //             currentSum += arr[j];
+    //             if(currentSum == target){
+    //                 result.push_back(i+1);
+    //                 result.push_back(j+1);
+    //                 return result;
+    //             }
+    //         }
+    //     }
+    //     return {-1};
+    // }
 };
-
-//{ Driver Code Starts.
-
-int main() {
-    int t;
-    cin >> t;
-    cin.ignore();
-    while (t--) {
-        vector<int> arr;
-        int d;
-        string input;
-
-        getline(cin, input);
-        stringstream ss(input);
-        int number;
-        while (ss >> number) {
-            arr.push_back(number);
-        }
-
-        cin >> d;
-        cin.ignore();
-
-        Solution ob;
-        vector<int> result = ob.subarraySum(arr, d);
-        for (int i : result) {
-            cout << i << " ";
-        }
-        cout << "\n~\n";
-    }
-    return 0;
-}
-
-// } Driver Code Ends
