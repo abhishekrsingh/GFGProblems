@@ -1,55 +1,50 @@
-//{ Driver Code Starts
-#include <bits/stdc++.h>
-using namespace std;
-
-
-// } Driver Code Ends
 class Solution {
   public:
     int maxLen(vector<int> &arr) {
-        for(int i=0;i<arr.size();i++){
-            if(arr[i]==0) arr[i]=-1;
+        int n = arr.size();
+        if(n < 1) return 0;
+        
+        unordered_map<int, int> storeFirstIndex;
+        int prefixSum = 0;
+        int longestCountSubarray = 0;
+        
+        for(int i = 0; i < n; i++)
+        {
+            // 0 ko -1 ki tarah treat kiya, 1 ko +1 ki tarah
+            prefixSum += (arr[i] == 0) ? -1 : 1;
+            
+            // Agar sum 0 ho gaya, matlab starting se lekar 'i' tak equal 0s aur 1s hain
+            if(prefixSum == 0) {
+                longestCountSubarray = i + 1;
+            }
+            // Agar yeh prefixSum pehle dikh chuka hai, toh beech ka sum 0 hai
+            else if(storeFirstIndex.find(prefixSum) != storeFirstIndex.end()) {
+                longestCountSubarray = max(longestCountSubarray, i - storeFirstIndex[prefixSum]);
+            }
+            // Agar pehli baar aaya hai, toh hi iska index store karo (Longest rakhne ke liye)
+            else {
+                storeFirstIndex[prefixSum] = i;
+            }
         }
-        int k=0;
-        int sum=0,length=0;
-        map<int,int>mp;
-        for(int i=0;i<arr.size();i++){
-            sum+=arr[i];
-            if(sum==k) length=max(length,i+1);
-            if(mp.find(sum)==mp.end()) mp[sum]=i;
-            if(mp.find(sum-k)!=mp.end()) length=max(length,i-mp[sum-k]);
-        }
-        return length;
+        
+        return longestCountSubarray;
     }
+    // int maxLen(vector<int> &arr) {
+    //     // Your code here
+    //     int n=arr.size();
+    //     if(n < 1) return 0;
+    //     int longestCountSubarray = 0;
+    //     for(int i=0; i<n; i++){
+    //         int countZeros = 0;
+    //         int countOnes = 0;
+    //         for(int j=i; j<n; j++)
+    //         {
+    //             (arr[j] == 0) ? countZeros++ : countOnes++;
+    //             if(countZeros == countOnes){
+    //                 longestCountSubarray = max(longestCountSubarray, j - i + 1);
+    //             }
+    //         }
+    //     }
+    //     return longestCountSubarray;
+    // }
 };
-
-
-//{ Driver Code Starts.
-
-int main() {
-    int T;
-    cin >> T;
-    cin.ignore(); // To ignore the newline character after reading T
-
-    while (T--) {
-        string line;
-        getline(cin, line); // Read the whole line for the array
-
-        // Convert the line into an array of integers
-        stringstream ss(line);
-        vector<int> a;
-        int num;
-        while (ss >> num) {
-            a.push_back(num);
-        }
-
-        // Create the solution object
-        Solution obj;
-
-        // Call the maxLen function and print the result
-        cout << obj.maxLen(a) << endl;
-    }
-
-    return 0;
-}
-// } Driver Code Ends
