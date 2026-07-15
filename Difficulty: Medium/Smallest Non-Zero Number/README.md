@@ -18,4 +18,4 @@ If x &lt; 4, it would become negative at some point.</span></pre>
 <strong>Explanation:</strong> Start with x = 3:
 - For arr[0] = 4, x becomes 2.
 - For arr[1] = 4, x becomes 0.<br>x remains non-negative. If x &lt; 3, it would become negative.</span></pre>
-<p><span style="font-size: 14pt;"><strong>Constraints:</strong><br>1 ≤ arr.size() ≤ 10<sup>6<br></sup>1&lt;= arr[i] &lt;= 10<sup>4</sup><sup><br></sup></span></p></div><br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>Arrays</code>&nbsp;<code>Data Structures</code>&nbsp;
+<p><span style="font-size: 14pt;"></span></p></div><br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>Arrays</code>&nbsp;<code>Data Structures</code>&nbsp;
