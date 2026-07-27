@@ -2,18 +2,13 @@ class Solution {
   public:
     vector<vector<int>> transpose(vector<vector<int>>& mat) {
         // code here
-        int n = mat.size();
-    
-        // Create a new matrix of same size
-        vector<vector<int>> result(n, vector<int>(n));
-        
-        // Compute transpose by swapping elements across the diagonal
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                result[j][i] = mat[i][j];
+        int row = mat.size();
+        int col = mat[0].size();
+        for(int i=0; i<row; i++){
+            for(int j=i; j<col; j++){
+                swap(mat[i][j], mat[j][i]);
             }
         }
-        
-        return result;
+        return mat;
     }
 };
