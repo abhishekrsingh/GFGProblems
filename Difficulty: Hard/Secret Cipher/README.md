@@ -7,7 +7,7 @@
 <li data-section-id="1mhnp27" data-start="363" data-end="395"><span style="font-size: 14pt;"> Repeat until no '*' remains. </span></li>
 </ul>
 <p class="PDq2pG_selectionAnchorContainer" data-start="48" data-end="213"><span style="font-size: 14pt;"> </span></p>
-<p data-start="397" data-end="501" data-is-last-node="" data-is-only-node=""><span style="font-size: 14pt;">Given the original string s, find the lexicographically smallest encrypted string that decodes to s.</span></p>
+<p data-start="397" data-end="501" data-is-last-node="" data-is-only-node=""><span style="font-size: 14pt;">Given the original string <strong>s</strong>, find the shortest encrypted string that decodes to s. If multiple encrypted strings have the same minimum length, return the lexicographically smallest encrypted string among them.</span></p>
 <p data-start="504" data-end="600"><span style="font-size: 18px;"><strong>Examples :</strong></span></p>
 <pre><span style="font-size: 18px;"><strong>Input:</strong> s = "ababcababcd"
 <strong>Output:</strong> ab*c*d
@@ -16,4 +16,4 @@
 <pre><span style="font-size: 18px;"><strong>Input:</strong> s = "zzzzzzz"
 <strong>Output:</strong> z*z*z
 <strong>Explanation: </strong>The string can be encrypted in 2 ways: "z*z*z" and "z**zzz". Out of the two "z*z*z" is smaller in length.</span></pre>
-<p><span style="font-size: 18px;"><strong>Constraints:&nbsp;</strong><br>1 ≤ |s| ≤ 10<sup>5</sup></span></p></div><br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>Stack</code>&nbsp;
+</div><br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>Stack</code>&nbsp;
